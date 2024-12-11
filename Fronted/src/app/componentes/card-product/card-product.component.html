@@ -1,0 +1,33 @@
+<!-- <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <h5>Categoría</h5>
+      <h4>Precio</h4>
+      <p class="card-text">DISPONIBLE</p>
+      <p>CANTIDAD</p>
+      <a href="#" class="btn btn-primary">Comprar</a>
+    </div>
+</div> -->
+
+<div class="row">
+    <div *ngFor="let producto of allProducts"  class="col">
+        <div class="card" style="width: 18rem;">
+            <img [src]="producto.image" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{producto.name}}</h5>
+              <h5>{{producto.category}}</h5>
+              <h4>{{producto.price}}</h4>
+    
+              <div *ngIf="producto.isAvailable">
+                  <p class="card-text">DISPONIBLE</p>
+              </div>
+    
+              <p>{{producto.stock}}</p>
+              <a href="#" class="btn btn-primary">Comprar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

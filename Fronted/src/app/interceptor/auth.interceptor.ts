@@ -1,26 +1,20 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { LoginService } from '../services/login.service';
+import { inject } from '@angular/core';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  return next(req);
+
+    // Inyectar el servicio de usuario
+  const authService = inject(LoginService);
+
+  // Obtener el token
+  const token = authService.getToken();
+
+  // Si hay token, clonar la solicitud y añadir el header
+  const tokenReq = token
+    ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
+    : req;
+
+  return next(tokenReq); // Continuar con la solicitud
+
 };
-
-
-// import { HttpInterceptorFn } from '@angular/common/http';
-// import { inject } from '@angular/core';
-// import { UserService } from '../../../services/user/user.service';
-
-// export const authInterceptor: HttpInterceptorFn = (req, next) => {
-//   // Inyecta el servicio UserService
-//   const authService = inject(UserService);
-
-//   // Clona la solicitud y agrega el encabezado Authorization
-//   const token = authService.getToken();
-//   const tokenReq = req.clone({
-//     setHeaders: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-
-//   // Maneja la solicitud modificada
-//   return next(tokenReq);
-// };

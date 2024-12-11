@@ -7,6 +7,10 @@
         <li><a routerLink="/productos">Productos</a></li>
         <li><a routerLink="/inicioSesion">Inicio de sesión</a></li>
         <li><a routerLink="/registroUsuarios">Registro</a></li>
-        <li><a routerLink="/admin">Panel de Control</a></li>
+        <li><a routerLink="/admin">Panel de Control:Inventario</a></li>
+        <li><a routerLink="/admin/usuarios">Panel de Control: Usuarios</a></li>
     </ul>
+
+    <!-- Si isLogged true, se muestra, sino, no se muestra -->
+    <button *ngIf="isLogged" class="btn btn-secondary" (click)="handdleLogout()">Cerrar sesión</button>
 </nav>

@@ -8,6 +8,7 @@ import { AdminComponent } from './paginas/admin/admin.component';
 import { NoFoundComponent } from './paginas/no-found/no-found.component';
 import { InventarioComponent } from './paginas/admin/inventario/inventario.component';
 import { UsuariosComponent } from './paginas/admin/usuarios/usuarios.component';
+import { authGuard } from './guards/auth.guard';
 
 // Nos creamos las rutas para cada componente página
 // las rutas son SIN /
@@ -16,12 +17,14 @@ export const routes: Routes = [
     { path: 'productos', component: ProductosComponent, title: 'Productos' },
     { path: 'inicioSesion', component: LoginComponent, title: 'Inicio de Sesión' },
     { path: 'registroUsuarios', component: RegistroComponent, title: 'Registro Usuarios' },
-    {
-        path: 'admin', component: AdminComponent, title: 'Panel de Administrador',
-        children: [  //RUTAS HIJAS
+    {   path: 'admin', component: AdminComponent, title: 'Panel de Administrador',
+        canActivate: [authGuard], // Protege el acceso a la ruta principal 'admin'
+        canActivateChild: [authGuard], // Protege todas las rutas hijas
+        children: [  
+            //RUTAS HIJAS
             // title es opcional
             { path: 'inventario', component: InventarioComponent, title: 'Inventario' },
-            { path: 'usuarios', component: UsuariosComponent, title: 'Registro de Usuarios' }
+            { path: '', component: UsuariosComponent, title: 'Registro de Usuarios' }
         ]
     },
     //Cualquier ruta que no exista será direccionada al componente
